@@ -1,0 +1,38 @@
+{
+  "Metadata": {
+    "title": "Demo i18n Next.js"
+  },
+  "HomePage": {
+    "title": "Halo, Dunia!",
+    "description": "Ini adalah aplikasi Next.js yang terinternasionalisasi menggunakan next-intl.",
+    "goToExamples": "Lihat Contoh"
+  },
+  "ExamplesPage": {
+    "title": "Contoh Komponen",
+    "description": "Halaman ini menunjukkan komponen server dan client dengan next-intl.",
+    "serverComponentTitle": "Komponen Server",
+    "serverComponentDescription": "Bagian ini dirender di server. Locale saat ini adalah: {locale}. Komponen server menggunakan getTranslations.",
+    "serverTimestamp": "Dirender di server pada: {timestamp}",
+    "clientComponentTitle": "Komponen Client",
+    "clientComponentDescription": "Bagian ini adalah komponen client. Memiliki state interaktif dan dapat menggunakan hooks seperti useTranslations di sisi klien.",
+    "clientZustandTitle": "Komponen Client (Zustand)",
+    "clientZustandDescription": "Bagian ini adalah komponen client yang mengelola state menggunakan Zustand.",
+    "counterLabel": "Penghitung: {count}",
+    "increment": "Tambah",
+    "decrement": "Kurang",
+    "reset": "Reset",
+    "backHome": "← Kembali ke Beranda"
+  },
+  "LangSwitcher": {
+    "label": "Bahasa",
+    "en": "Inggris",
+    "id": "Indonesia",
+    "ja": "Jepang"
+  },
+  "ThemeToggle": {
+    "label": "Tema",
+    "light": "Terang",
+    "dark": "Gelap",
+    "system": "Sistem"
+  }
+}

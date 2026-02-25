@@ -1,0 +1,38 @@
+{
+  "Metadata": {
+    "title": "Next.js i18n Demo"
+  },
+  "HomePage": {
+    "title": "Hello, World!",
+    "description": "This is an internationalized Next.js application using next-intl.",
+    "goToExamples": "View Examples"
+  },
+  "ExamplesPage": {
+    "title": "Component Examples",
+    "description": "This page demonstrates server and client components with next-intl.",
+    "serverComponentTitle": "Server Component",
+    "serverComponentDescription": "This section is rendered on the server. The current locale is: {locale}. Server components use getTranslations.",
+    "serverTimestamp": "Server rendered at: {timestamp}",
+    "clientComponentTitle": "Client Component",
+    "clientComponentDescription": "This section is a client component. It has interactive state and can use hooks like useTranslations on the client side.",
+    "clientZustandTitle": "Client Component (Zustand)",
+    "clientZustandDescription": "This section is a client component that manages state using Zustand.",
+    "counterLabel": "Counter: {count}",
+    "increment": "Increment",
+    "decrement": "Decrement",
+    "reset": "Reset",
+    "backHome": "← Back to Home"
+  },
+  "LangSwitcher": {
+    "label": "Language",
+    "en": "English",
+    "id": "Indonesian",
+    "ja": "Japanese"
+  },
+  "ThemeToggle": {
+    "label": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  }
+}
