@@ -11,7 +11,7 @@
     "title": "Contoh Komponen",
     "description": "Halaman ini menunjukkan komponen server dan client dengan next-intl.",
     "serverComponentTitle": "Komponen Server",
-    "serverComponentDescription": "Bagian ini dirender di server. Locale saat ini adalah: {locale}. Komponen server menggunakan getTranslations.",
+    "serverComponentDescription": "Bagian ini dirender di server. Komponen server menggunakan getTranslations.",
     "serverTimestamp": "Dirender di server pada: {timestamp}",
     "clientComponentTitle": "Komponen Client",
     "clientComponentDescription": "Bagian ini adalah komponen client. Memiliki state interaktif dan dapat menggunakan hooks seperti useTranslations di sisi klien.",

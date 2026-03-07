@@ -11,7 +11,7 @@
     "title": "Component Examples",
     "description": "This page demonstrates server and client components with next-intl.",
     "serverComponentTitle": "Server Component",
-    "serverComponentDescription": "This section is rendered on the server. The current locale is: {locale}. Server components use getTranslations.",
+    "serverComponentDescription": "This section is rendered on the server. Server components use getTranslations.",
     "serverTimestamp": "Server rendered at: {timestamp}",
     "clientComponentTitle": "Client Component",
     "clientComponentDescription": "This section is a client component. It has interactive state and can use hooks like useTranslations on the client side.",

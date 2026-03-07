@@ -1,23 +1,12 @@
 import { useTranslations } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
-import { use } from "react";
-import { Link } from "@/i18n/navigation";
 import LangSwitcher from "@/components/lang-switcher";
 import ServerInfo from "@/components/server-info";
 import Counter from "@/components/counter";
 import CounterZustand from "@/components/counter-zustand";
 import ThemeToggle from "@/components/theme-toggle";
+import Link from "next/link";
 
-type Props = {
-  params: Promise<{ locale: string }>;
-};
-
-export default function ExamplesPage({ params }: Props) {
-  const { locale } = use(params);
-
-  // Enable static rendering
-  setRequestLocale(locale);
-
+export default function ExamplesPage() {
   const t = useTranslations("ExamplesPage");
 
   return (
@@ -41,7 +30,7 @@ export default function ExamplesPage({ params }: Props) {
       </div>
 
       {/* Server Component Example */}
-      <ServerInfo locale={locale} />
+      <ServerInfo />
 
       {/* Client Component Example */}
       <Counter />

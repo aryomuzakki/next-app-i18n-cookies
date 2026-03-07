@@ -1,20 +1,9 @@
 import { useTranslations } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
-import { use } from "react";
-import { Link } from "@/i18n/navigation";
 import LangSwitcher from "@/components/lang-switcher";
 import ThemeToggle from "@/components/theme-toggle";
+import Link from "next/link";
 
-type Props = {
-  params: Promise<{ locale: string }>;
-};
-
-export default function HomePage({ params }: Props) {
-  const { locale } = use(params);
-
-  // Enable static rendering
-  setRequestLocale(locale);
-
+export default function HomePage() {
   const t = useTranslations("HomePage");
 
   return (

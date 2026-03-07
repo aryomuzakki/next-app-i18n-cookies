@@ -1,18 +1,20 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 
 export default function Counter() {
+  const locale = useLocale();
   const t = useTranslations("ExamplesPage");
   const [count, setCount] = useState(0);
 
   return (
     <div className="border-border bg-card rounded-xl border p-6 shadow-sm">
+      <p className="text-muted-foreground mb-2 text-sm">Current Locale: {locale}</p>
       <h3 className="mb-2 text-lg font-semibold">{t("clientComponentTitle")}</h3>
       <p className="text-muted-foreground mb-4 text-sm">{t("clientComponentDescription")}</p>
       <div className="flex items-center gap-4">
-        <span className="min-w-[120px] text-xl font-bold">{t("counterLabel", { count })}</span>
+        <span className="min-w-30 text-xl font-bold">{t("counterLabel", { count })}</span>
         <div className="flex gap-2">
           <button
             onClick={() => setCount(c => c - 1)}

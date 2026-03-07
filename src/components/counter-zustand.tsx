@@ -12,7 +12,7 @@ export default function CounterZustand() {
       <h3 className="mb-2 text-lg font-semibold">{t("clientZustandTitle")}</h3>
       <p className="text-muted-foreground mb-4 text-sm">{t("clientZustandDescription")}</p>
       <div className="flex items-center gap-4">
-        <span className="min-w-[120px] text-xl font-bold">{t("counterLabel", { count })}</span>
+        <span className="min-w-30 text-xl font-bold">{t("counterLabel", { count })}</span>
         <div className="flex gap-2">
           <button
             onClick={decrement}

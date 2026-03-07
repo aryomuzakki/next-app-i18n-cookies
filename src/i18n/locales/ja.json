@@ -11,7 +11,7 @@
     "title": "コンポーネントの例",
     "description": "このページでは、next-intlを使用したサーバーコンポーネントとクライアントコンポーネントを紹介します。",
     "serverComponentTitle": "サーバーコンポーネント",
-    "serverComponentDescription": "このセクションはサーバー上でレンダリングされます。\n現在のロケールは {locale} です。\nサーバー コンポーネントは getTranslation を使用します。",
+    "serverComponentDescription": "このセクションはサーバー上でレンダリングされます。\nサーバー コンポーネントは getTranslation を使用します。",
     "serverTimestamp": "サーバーレンダリング時刻: {timestamp}",
     "clientComponentTitle": "クライアントコンポーネント",
     "clientComponentDescription": "このセクションはクライアントコンポーネントです。インタラクティブなstateを持ち、クライアント側でuseTranslationsなどのhooksを使用できます。",

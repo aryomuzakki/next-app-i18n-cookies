@@ -1,61 +1,79 @@
-# Next.js + next-intl i18n Project Setup
+# Next.js + next-intl i18n (Cookie-Based)
 
-Initialized a **Next.js 16** project with **next-intl** for internationalization
+Internationalized **Next.js 16** app using **next-intl** with **cookie-based** locale detection — no `[locale]` route parameter, no next-intl routing.
 
-### Stack Installed
-- **Next.js 16.1.6** (App Router, Turbopack)
+### Stack
+
+- **Next.js 16** (App Router, Turbopack, React Compiler)
 - **TypeScript**, **Tailwind CSS v4**, **ESLint**
 - **Prettier** + `prettier-plugin-tailwindcss`
-- **shadcn/ui** (default config)
-- **next-intl** (locale-based routing)
+- **shadcn/ui**
+- **next-intl** (cookie-based, no routing)
+- **next-themes** (light / dark / system)
+- **Zustand** (UI state demos)
 
 ### Locales Configured
+
 - `en` (English) — default
 - `id` (Indonesian)
+- `ja` (Japanese)
+
+## How It Works
+
+1. The active locale is stored in a cookie (`next_app_i18n_locale`).
+2. `request.ts` reads the cookie via `cookies()` and loads the matching translation JSON.
+3. A server action (`update-lang.ts`) sets the cookie when the user switches languages.
+4. No `[locale]` dynamic segment — all routes live directly under `app/`.
+5. No next-intl routing, navigation helpers, or middleware/proxy are used.
 
 ## Project Structure
 
 ```
 src/
 ├── app/
-│   ├── [locale]/
-│   │   ├── layout.tsx    ← Locale layout with NextIntlClientProvider
-│   │   └── page.tsx      ← Demo page with translated content + locale switch
-│   └── globals.css       ← Tailwind + shadcn CSS variables
+│   ├── examples/
+│   │   └── page.tsx          ← Demo page (server info, counters)
+│   ├── globals.css           ← Tailwind + shadcn CSS variables
+│   ├── layout.tsx            ← Root layout with NextIntlClientProvider
+│   └── page.tsx              ← Home page with translated content
+├── components/
+│   ├── counter-zustand.tsx   ← Zustand counter demo
+│   ├── counter.tsx           ← Client counter demo
+│   ├── lang-switcher.tsx     ← Language switcher (calls server action)
+│   ├── server-info.tsx       ← Server component demo
+│   ├── theme-provider.tsx    ← next-themes provider
+│   └── theme-toggle.tsx      ← Theme toggle button
+├── hooks/
+│   └── use-is-client.tsx     ← Client-side detection hook
 ├── i18n/
-│   ├── routing.ts        ← Central routing config (locales, defaultLocale)
-│   ├── navigation.ts     ← Locale-aware Link, useRouter, etc.
-│   └── request.ts        ← Server request config (loads translation JSON)
+│   ├── locales/
+│   │   ├── en.json           ← English translations
+│   │   ├── id.json           ← Indonesian translations
+│   │   └── ja.json           ← Japanese translations
+│   └── request.ts            ← Reads locale cookie → loads messages
 ├── lib/
-│   └── utils.ts          ← shadcn cn() utility
-└── proxy.ts              ← Locale middleware (Next.js 16 uses proxy.ts)
-messages/
-├── en.json               ← English translations
-└── id.json               ← Indonesian translations
+│   ├── actions/
+│   │   └── update-lang.ts    ← Server action to set locale cookie
+│   ├── constant.ts           ← LOCALES, DEFAULT_LOCALE, LOCALE_COOKIE_NAME
+│   └── utils.ts              ← cn() utility
+└── store/
+    └── counter-store.ts      ← Zustand counter store
 ```
 
 ## Key Files
 
-| File | Purpose |
-|------|---------|
-| `next.config.ts` | Wrapped with `createNextIntlPlugin()` |
-| `routing.ts` | Defines supported locales (`en`, `id`) and default |
-| `proxy.ts` | Handles locale detection and routing |
-| `request.ts` | Loads message JSON based on resolved locale |
-| `navigation.ts` | Exports locale-aware `Link`, `useRouter`, etc. |
-| `layout.tsx` | Validates locale, provides `NextIntlClientProvider` |
-| `page.tsx` | Demo page with `useTranslations` and locale switch |
-
+| File                | Purpose                                                           |
+| ------------------- | ----------------------------------------------------------------- |
+| `next.config.ts`    | Wrapped with `createNextIntlPlugin()`                             |
+| `constant.ts`       | Defines `LOCALES`, `DEFAULT_LOCALE`, and `LOCALE_COOKIE_NAME`     |
+| `request.ts`        | Reads locale from cookie, loads translation JSON                  |
+| `update-lang.ts`    | Server action — sets the locale cookie                            |
+| `layout.tsx`        | Root layout with `NextIntlClientProvider` and `ThemeProvider`     |
+| `lang-switcher.tsx` | Client component — buttons that call `updateLang()` server action |
 
 ---
-
----
-
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
-
-First, run the development server:
 
 ```bash
 npm run dev
@@ -69,18 +87,13 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- [Next.js Documentation](https://nextjs.org/docs) — learn about Next.js features and API.
+- [next-intl Documentation](https://next-intl.dev) — learn about next-intl configuration and usage.
+- [Learn Next.js](https://nextjs.org/learn) — an interactive Next.js tutorial.
 
 ## Deploy on Vercel
 
