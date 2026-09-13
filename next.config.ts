@@ -9,6 +9,7 @@ const withNextIntl = createNextIntlPlugin();
 const nextConfig: NextConfig = {
   reactCompiler: true,
   poweredByHeader: false,
+  // Type checking is skipped during builds for faster deployment; run `npm run check` (or `bun run check`) manually.
   typescript: { ignoreBuildErrors: true },
   compiler: { removeConsole: hideConsole },
   // images: {

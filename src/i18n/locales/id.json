@@ -1,6 +1,7 @@
 {
   "Metadata": {
-    "title": "Demo i18n Next.js"
+    "title": "Demo i18n Next.js",
+    "description": "Aplikasi Next.js terinternasionalisasi menggunakan next-intl"
   },
   "HomePage": {
     "title": "Halo, Dunia!",

@@ -8,7 +8,7 @@ Internationalized **Next.js 16** app using **next-intl** with **cookie-based** l
 - **TypeScript**, **Tailwind CSS v4**, **ESLint**
 - **Prettier** + `prettier-plugin-tailwindcss`
 - **shadcn/ui**
-- **next-intl** (cookie-based, no routing)
+- **next-intl** (cookie-based, no URL prefix routing)
 - **next-themes** (light / dark / system)
 - **Zustand** (UI state demos)
 
@@ -20,11 +20,12 @@ Internationalized **Next.js 16** app using **next-intl** with **cookie-based** l
 
 ## How It Works
 
-1. The active locale is stored in a cookie (`next_app_i18n_locale`).
-2. `request.ts` reads the cookie via `cookies()` and loads the matching translation JSON.
-3. A server action (`update-lang.ts`) sets the cookie when the user switches languages.
-4. No `[locale]` dynamic segment — all routes live directly under `app/`.
-5. No next-intl routing, navigation helpers, or middleware/proxy are used.
+1. **Cookie-Based Persistence**: The active locale is stored in a durable cookie (`next_app_i18n_locale`) with a 1-year expiration and `SameSite=Lax`.
+2. **First-Visit Auto Negotiation**: If no cookie exists (first visit), `request.ts` inspects the browser's `Accept-Language` header to automatically serve the visitor's preferred language before falling back to `DEFAULT_LOCALE`.
+3. **Smooth Client Transitions**: `LangSwitcher` invokes the `updateLang` Server Action inside React's `startTransition` paired with `router.refresh()`. This triggers an instant React Server Component refresh without a hard browser reload and provides a non-blocking `isPending` indicator.
+4. **End-to-End Type Safety**: `src/types/global.d.ts` registers `IntlMessages` so all translation keys used in `useTranslations()` and `getTranslations()` are strictly typed with full IDE autocompletion.
+5. **Dynamic Localized Metadata**: Root layout utilizes `generateMetadata()` to dynamically translate document titles and descriptions.
+6. **No `[locale]` Dynamic Segment**: All routes live cleanly under `app/` without subpath prefixes.
 
 ## Project Structure
 
@@ -34,12 +35,12 @@ src/
 │   ├── examples/
 │   │   └── page.tsx          ← Demo page (server info, counters)
 │   ├── globals.css           ← Tailwind + shadcn CSS variables
-│   ├── layout.tsx            ← Root layout with NextIntlClientProvider
+│   ├── layout.tsx            ← Root layout with NextIntlClientProvider & generateMetadata
 │   └── page.tsx              ← Home page with translated content
 ├── components/
 │   ├── counter-zustand.tsx   ← Zustand counter demo
 │   ├── counter.tsx           ← Client counter demo
-│   ├── lang-switcher.tsx     ← Language switcher (calls server action)
+│   ├── lang-switcher.tsx     ← Language switcher with useTransition & router.refresh()
 │   ├── server-info.tsx       ← Server component demo
 │   ├── theme-provider.tsx    ← next-themes provider
 │   └── theme-toggle.tsx      ← Theme toggle button
@@ -50,53 +51,46 @@ src/
 │   │   ├── en.json           ← English translations
 │   │   ├── id.json           ← Indonesian translations
 │   │   └── ja.json           ← Japanese translations
-│   └── request.ts            ← Reads locale cookie → loads messages
+│   └── request.ts            ← Cookie reader & Accept-Language negotiator
 ├── lib/
 │   ├── actions/
-│   │   └── update-lang.ts    ← Server action to set locale cookie
-│   ├── constant.ts           ← LOCALES, DEFAULT_LOCALE, LOCALE_COOKIE_NAME
+│   │   └── update-lang.ts    ← Server action to validate & persist locale cookie
+│   ├── constant.ts           ← LOCALES, Locale type, DEFAULT_LOCALE, COOKIE_MAX_AGE
 │   └── utils.ts              ← cn() utility
-└── store/
-    └── counter-store.ts      ← Zustand counter store
+├── store/
+│   └── counter-store.ts      ← Zustand counter store
+└── types/
+    └── global.d.ts           ← Type-safe next-intl message definitions
 ```
 
 ## Key Files
 
-| File                | Purpose                                                           |
-| ------------------- | ----------------------------------------------------------------- |
-| `next.config.ts`    | Wrapped with `createNextIntlPlugin()`                             |
-| `constant.ts`       | Defines `LOCALES`, `DEFAULT_LOCALE`, and `LOCALE_COOKIE_NAME`     |
-| `request.ts`        | Reads locale from cookie, loads translation JSON                  |
-| `update-lang.ts`    | Server action — sets the locale cookie                            |
-| `layout.tsx`        | Root layout with `NextIntlClientProvider` and `ThemeProvider`     |
-| `lang-switcher.tsx` | Client component — buttons that call `updateLang()` server action |
+| File                | Purpose                                                                             |
+| ------------------- | ----------------------------------------------------------------------------------- |
+| `next.config.ts`    | Wrapped with `createNextIntlPlugin()`                                              |
+| `constant.ts`       | Defines `LOCALES`, `Locale` type, `DEFAULT_LOCALE`, and `LOCALE_COOKIE_NAME`       |
+| `request.ts`        | Reads locale cookie with `Accept-Language` fallback, loads translation messages     |
+| `update-lang.ts`    | Server action — validates and sets the durable locale cookie                        |
+| `layout.tsx`        | Root layout with `generateMetadata()`, `NextIntlClientProvider`, and `ThemeProvider`|
+| `lang-switcher.tsx` | Client component — switches locale via `useTransition` and `router.refresh()`       |
+| `global.d.ts`       | Declares `IntlMessages` for compile-time translation key type safety                |
 
 ---
 
-## Getting Started
+## Scripts
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Start development server
+bun dev # or npm run dev
+
+# Run type check manually
+bun run check # or npm run check
+
+# Run linter
+bun run lint # or npm run lint
+
+# Build for production
+bun run build # or npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-- [Next.js Documentation](https://nextjs.org/docs) — learn about Next.js features and API.
-- [next-intl Documentation](https://next-intl.dev) — learn about next-intl configuration and usage.
-- [Learn Next.js](https://nextjs.org/learn) — an interactive Next.js tutorial.
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+> **Note on Builds**: Type validation is bypassed in `next.config.ts` via `ignoreBuildErrors: true` for rapid builds. Run `bun run check` (or `npm run check`) in your CI/CD pipeline or before committing.

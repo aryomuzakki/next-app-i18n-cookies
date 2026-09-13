@@ -1,6 +1,7 @@
 {
   "Metadata": {
-    "title": "Next.js i18n デモ"
+    "title": "Next.js i18n デモ",
+    "description": "next-intlを使用した国際化Next.jsアプリケーション"
   },
   "HomePage": {
     "title": "こんにちは、世界！",
