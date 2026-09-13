@@ -18,6 +18,27 @@ Internationalized **Next.js 16** app using **next-intl** with **cookie-based** l
 - `id` (Indonesian)
 - `ja` (Japanese)
 
+---
+
+## 🤖 AI Agent & Integration Guide
+
+Want to use or replicate this setup in another project?
+
+- **New Project**: Clone this repository as a ready-to-use template:
+  ```bash
+  git clone https://github.com/aryomuzakki/next-app-i18n-cookies.git <project-name>
+  ```
+- **Existing Project (For AI Agents & Developers)**: Step-by-step instructions designed for an AI agent or developer to integrate cookie-based `next-intl` without breaking existing routing:
+  - **Local Guide**: [AGENT_GUIDE.md](AGENT_GUIDE.md)
+  - **Raw GitHub URL** *(for AI agents, curl, or web fetch tools)*:  
+    `https://raw.githubusercontent.com/aryomuzakki/next-app-i18n-cookies/main/AGENT_GUIDE.md`
+  - **Deployed Demo Path**: `/agent-guide.md` (or discoverable via `/llms.txt`)
+
+> 💡 **Prompt for AI Coding Assistants**:  
+> *"Please fetch the instructions at `https://raw.githubusercontent.com/aryomuzakki/next-app-i18n-cookies/main/AGENT_GUIDE.md` and follow them to add cookie-based next-intl i18n to this project."*
+
+---
+
 ## How It Works
 
 1. **Cookie-Based Persistence**: The active locale is stored in a durable cookie (`next_app_i18n_locale`) with a 1-year expiration and `SameSite=Lax`.

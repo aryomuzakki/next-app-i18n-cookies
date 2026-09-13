@@ -1,0 +1,9 @@
+# Next.js Cookie-Based i18n (next-intl)
+
+> Cookie-based internationalization for Next.js App Router using next-intl without [locale] route prefixes.
+
+## Integration Guides for AI & Developers
+
+- [AI Agent Guide](/agent-guide.md): Complete step-by-step instructions for AI agents and developers to integrate this setup into an existing Next.js project.
+- [GitHub Repository](https://github.com/aryomuzakki/next-app-i18n-cookies): Full source code and starter template.
+- [Raw Agent Guide on GitHub](https://raw.githubusercontent.com/aryomuzakki/next-app-i18n-cookies/main/AGENT_GUIDE.md): Direct raw markdown URL for agent tools (curl / web fetch).
